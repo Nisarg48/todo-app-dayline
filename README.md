@@ -4,9 +4,9 @@ No login. No cloud. Data stays on device (localStorage + optional local server f
 
 ```
 todo-app/
-  frontend/   React + Vite (glass UI, responsive, PWA)
-  backend/    Express local API, file storage (backend/data/todos.json)
-  desktop/    Electron wrapper → .exe / .dmg / .AppImage
+  frontend/   React + Vite (glass UI, responsive, PWA — works alone, no backend needed)
+  backend/    Express local API, file storage (backend/data/todos.json) — single-server mode + backup
+  desktop/    Electron wrapper (native window + bundled backend) → .exe / .dmg / .AppImage
 ```
 
 ## Features

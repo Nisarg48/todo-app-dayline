@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "NODE_ENV=development electron .",
     "start": "NODE_ENV=production electron .",
-    "dist": "electron-builder --win --mac --linux"
+    "dist": "electron-builder"
   },
   "devDependencies": {
     "electron": "^31.0.0",
@@ -16,7 +16,8 @@
   "build": {
     "appId": "com.dayline.app",
     "productName": "Dayline",
-    "files": ["main.js", "../frontend/dist/**/*", "../backend/**/*"],
+    "asar": false,
+    "files": ["main.js", "staged/**/*"],
     "win": { "target": ["nsis"] },
     "mac": { "target": ["dmg"] },
     "linux": { "target": ["AppImage", "deb"] }

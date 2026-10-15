@@ -6,8 +6,10 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const DATA_FILE = path.join(__dirname, 'data', 'todos.json')
-const FRONTEND_DIST = path.join(__dirname, '..', 'frontend', 'dist')
+const DATA_FILE = path.join(process.env.DATA_DIR || path.join(__dirname, 'data'), 'todos.json')
+// Packaged desktop app passes FRONTEND_DIR; dev/single-server uses ../frontend/dist.
+const FRONTEND_DIST =
+  [process.env.FRONTEND_DIR, path.join(__dirname, '..', 'frontend', 'dist')].find((d) => d && existsSync(d)) || null
 const PORT = process.env.PORT || 4000
 
 const app = express()
@@ -106,7 +108,7 @@ app.get('/api/stats', async (req, res) => {
 
 // Serve built frontend so ONE server = full app (double-click friendly).
 // If frontend/dist exists, http://localhost:PORT opens the app directly.
-if (existsSync(FRONTEND_DIST)) {
+if (FRONTEND_DIST) {
   app.use(express.static(FRONTEND_DIST))
   app.get(/.*/, (_req, res) => {
     res.sendFile(path.join(FRONTEND_DIST, 'index.html'))

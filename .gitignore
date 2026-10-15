@@ -5,3 +5,4 @@ backend/data/*.json
 !backend/data/todos.json
 desktop/dist
 desktop/node_modules
+desktop/staged
