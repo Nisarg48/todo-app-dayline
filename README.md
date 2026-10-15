@@ -74,3 +74,14 @@ You have 3 ways. Pick one. No `npm`, no terminal needed after setup.
 - `PATCH /api/todos/:id`
 - `DELETE /api/todos/:id`
 - `GET /api/stats?range=week|month|year`
+
+## How this app was built — with AI, in OpenCode
+
+This whole application was made using an AI model — **Muse Spark** — working inside **OpenCode**, as a hands-on test of how it works, how powerful it is, and how well it tackles ideas:
+
+- **Ideas → working app**: plain-language ideas ("glass UI", "a task that runs from the 5th to the 10th", "weeks mean Sun–Sat") were turned into real, tested features in the same session — no specs, no tickets.
+- **Whole product, not snippets**: planning, React frontend, local Express backend, Electron desktop wrapper, PWA packaging, release automation, docs — handled as one connected build.
+- **Real engineering loop**: actual errors were diagnosed from real output — a white screen traced to a stale service worker, port clashes, task loss across updates — then fixed, rebuilt, and re-verified (`npm run build`, HTTP checks) until green.
+- **Human directs, model implements**: the person supplied the vision and feedback ("remove the All tab", "Upcoming = 3 days only"); the model did the scaffolding, boilerplate, wiring, and iteration.
+
+It doubles as a demo of agentic development with OpenCode: describe the outcome, review, refine — the boring parts disappear and ideas become software.
