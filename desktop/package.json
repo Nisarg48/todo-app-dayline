@@ -1,5 +1,5 @@
 {
-  "name": "glass-todo-desktop",
+  "name": "dayline-desktop",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -14,8 +14,8 @@
     "electron-builder": "^25.1.8"
   },
   "build": {
-    "appId": "com.glasstodo.app",
-    "productName": "GlassTodo",
+    "appId": "com.dayline.app",
+    "productName": "Dayline",
     "files": ["main.js", "../frontend/dist/**/*", "../backend/**/*"],
     "win": { "target": ["nsis"] },
     "mac": { "target": ["dmg"] },

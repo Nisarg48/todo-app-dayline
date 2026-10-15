@@ -113,9 +113,37 @@ button { font-family: inherit; }
 
 .foot { text-align: center; color: rgba(255,255,255,.75); font-size: .8rem; }
 
+.notice { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: .9rem; }
+.notice button { border: 0; background: #f1f5f9; border-radius: 8px; cursor: pointer; padding: 4px 10px; }
+.err { color: #b91c1c; background: #fee2e2; border-radius: 10px; padding: 8px 12px; font-size: .85rem; margin: 0; }
+.hint { font-size: .8rem; color: #64748b; margin: 0; }
+.form label.wide { font-size: .8rem; color: #475569; display: flex; flex-direction: column; gap: 4px; }
+.form label.wide input { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: .95rem; background: rgba(255,255,255,.9); }
+
+.daygroup h3 { font-size: .95rem; margin: 14px 0 8px; }
+.daygroup h3 small { color: #64748b; font-weight: 400; }
+.daygroup:first-of-type h3 { margin-top: 4px; }
+.empty.small { padding: 8px; }
+
+.allday { font-size: .72rem; background: #e0f2fe; color: #075985; padding: 2px 8px; border-radius: 999px; font-weight: 700; }
+
+.insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.panel { background: rgba(255,255,255,.85); border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px; }
+.panel h3 { margin: 0 0 8px; font-size: .95rem; }
+.split-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; font-size: .85rem; }
+.split-row .meter { flex: 1; }
+.split-row small { min-width: 44px; text-align: right; color: #64748b; }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.bullets { margin: 0; padding-left: 18px; font-size: .88rem; display: flex; flex-direction: column; gap: 6px; color: #334155; }
+.data-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.ghost.file { cursor: pointer; display: inline-block; }
+code { background: #f1f5f9; padding: 1px 6px; border-radius: 6px; font-size: .78rem; }
+
 @media (max-width: 860px) {
   .grid { grid-template-columns: 1fr; }
-  .stat-cards { grid-template-columns: 1fr; }
+  .stat-cards { grid-template-columns: 1fr 1fr; }
+  .insight-grid, .about-grid { grid-template-columns: 1fr; }
   .header h1 { font-size: 1.4rem; }
   .cell { min-height: 52px; }
   .bg { padding: 12px 8px 30px; }

@@ -1,9 +1,9 @@
 {
-  "name": "todo-app",
+  "name": "dayline",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Glass Todo — local-first planner. frontend/ + backend/ + desktop/",
+  "description": "Dayline — day-wise local-first planner. frontend/ + backend/ + desktop/",
   "scripts": {
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "npm --prefix backend run dev",

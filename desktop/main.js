@@ -21,6 +21,7 @@ async function createWindow() {
   win = new BrowserWindow({
     width: 1180,
     height: 800,
+    title: 'Dayline',
     backgroundColor: '#0f172a',
     autoHideMenuBar: true,
     webPreferences: { contextIsolation: true, nodeIntegration: false },
