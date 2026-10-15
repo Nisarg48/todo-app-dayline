@@ -1,0 +1,7 @@
+node_modules
+dist
+.vite
+backend/data/*.json
+!backend/data/todos.json
+desktop/dist
+desktop/node_modules

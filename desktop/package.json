@@ -1,0 +1,24 @@
+{
+  "name": "glass-todo-desktop",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "dev": "NODE_ENV=development electron .",
+    "start": "NODE_ENV=production electron .",
+    "dist": "electron-builder --win --mac --linux"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.glasstodo.app",
+    "productName": "GlassTodo",
+    "files": ["main.js", "../frontend/dist/**/*", "../backend/**/*"],
+    "win": { "target": ["nsis"] },
+    "mac": { "target": ["dmg"] },
+    "linux": { "target": ["AppImage", "deb"] }
+  }
+}
