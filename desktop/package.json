@@ -2,6 +2,9 @@
   "name": "dayline-desktop",
   "private": true,
   "version": "1.0.0",
+  "description": "Dayline desktop app",
+  "author": { "name": "Nisarg Patel", "email": "nisargdp48@gmail.com" },
+  "homepage": "https://github.com/Nisarg48/todo-app-dayline",
   "type": "module",
   "main": "main.js",
   "scripts": {
