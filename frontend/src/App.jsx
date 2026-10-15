@@ -176,22 +176,31 @@ export default function App() {
   const monthBars = useMemo(() => {
     const [y, m] = monthStart.split('-').map(Number)
     const dim = new Date(y, m, 0).getDate()
+    const first = `${monthStart.slice(0, 8)}01`
+    const last = `${monthStart.slice(0, 8)}${String(dim).padStart(2, '0')}`
+    const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    // Sun–Sat weeks overlapping this month (same weeks as the weekly view)
+    let cur = addDays(first, -new Date(y, m - 1, 1).getDay())
     const buckets = []
-    for (let s = 1; s <= dim; s += 7) {
-      const a = `${monthStart.slice(0, 8)}${String(s).padStart(2, '0')}`
-      const b = `${monthStart.slice(0, 8)}${String(Math.min(s + 6, dim)).padStart(2, '0')}`
+    while (cur <= last) {
+      const wEnd = addDays(cur, 6)
+      const a = cur < first ? first : cur
+      const b = wEnd > last ? last : wEnd
+      const [sy, sm, sd] = cur.split('-').map(Number)
       buckets.push({
-        label: `${s}–${Math.min(s + 6, dim)}`,
+        date: `${cur}→${wEnd}`,
+        label: `${sd} ${MON[sm - 1]}`,
         added: todos.filter((t) => { const d = dayKey(t.createdAt || t.date); return d >= a && d <= b }).length,
         done: todos.filter((t) => t.completed && dayKey(t.completedAt) >= a && dayKey(t.completedAt) <= b).length,
       })
+      cur = addDays(cur, 7)
     }
     return buckets
   }, [todos, monthStart])
 
   const yearBars = useMemo(() => {
     const y = today.slice(0, 4)
-    const names = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+    const names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return names.map((label, i) => {
       const p = `${y}-${String(i + 1).padStart(2, '0')}`
       return {
@@ -407,7 +416,6 @@ export default function App() {
           <div className="grid single">
             <section className="glass card">
               <h2>📊 Insights</h2>
-              <p className="hint">Week = Sunday → Saturday ({prettyDate(wk.start)} – {prettyDate(wk.end)}). Added = created that period, Done = finished that period.</p>
               <div className="stat-cards">
                 <ScopeCard title="This week" s={sWeek} />
                 <ScopeCard title="This month" s={sMonth} />
