@@ -1,0 +1,19 @@
+{
+  "name": "todo-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Glass Todo — local-first planner. frontend/ + backend/ + desktop/",
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev": "npm --prefix backend run dev & npm --prefix frontend run dev",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run build && node backend/server.js",
+    "preview": "npm --prefix frontend run preview",
+    "desktop:install": "npm --prefix desktop install",
+    "desktop:dev": "npm --prefix desktop run dev",
+    "desktop:dist": "npm --prefix desktop run dist"
+  }
+}
