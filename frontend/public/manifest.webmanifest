@@ -1,7 +1,7 @@
 {
-  "name": "Glass Todo — Daily Planner",
-  "short_name": "GlassTodo",
-  "description": "Local-first daily todo with timeline, calendar and insights.",
+  "name": "Dayline — Daily Planner",
+  "short_name": "Dayline",
+  "description": "Day-wise local-first planner with ranges, calendar and insights.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",

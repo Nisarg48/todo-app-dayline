@@ -1,6 +1,6 @@
-# Glass Todo — local-first daily planner
+# Dayline — day-wise daily planner
 
-No login. No cloud. Data stays on device (localStorage). Optional local backend + installable desktop/mobile app.
+No login. No cloud. Data stays on device (localStorage + optional local server file). Glass-style UI.
 
 ```
 todo-app/
@@ -10,13 +10,14 @@ todo-app/
 ```
 
 ## Features
-- Add task with **date + time timeline**, priority, notes
-- Tabs: **Today / Upcoming / Previous / All / Calendar / Insights**
-- **Calendar month view** like Google Calendar, click a day to see tasks
-- **Insights**: last 7 / 30 / 365 days added vs completed, % meter, 14-day chart, day streak 🔥
-- Search + priority filter, edit, overdue highlight, clear completed
-- **Glass UI**, responsive (mobile → desktop)
-- localStorage key `glass-todo-app-v2` (auto-migrates old `vite-todo-app-items-v1`), no data loss
+- Add task with **start + end date (multi-day ranges)**, time (empty = all-day, due end of day), priority, notes
+- New tasks start **today or later** — history lives in Previous, never lost on update (auto-migration + export/import)
+- Tabs: **Today / Upcoming (next 3 days) / Previous / Calendar / Insights / About**
+- **Calendar month view**, ranges stretch across days, click a day to see it
+- **Insights**: Sun–Sat week, calendar month/year + all-time, added vs done, best day, week/month/year charts, priority split, streaks
+- Search + priority filter, edit, time-aware overdue, clear completed
+- **About tab**: how-to, why-Dayline, data export/import
+- **Glass UI**, responsive, localStorage key `dayline-todos-v3`
 
 ## Run (any OS with Node 18+)
 

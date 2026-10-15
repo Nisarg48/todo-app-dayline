@@ -1,4 +1,4 @@
-const CACHE = 'glass-todo-v1'
+const CACHE = 'dayline-v3'
 const ASSETS = ['/', '/index.html', '/manifest.webmanifest']
 
 self.addEventListener('install', (e) => {

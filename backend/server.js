@@ -41,19 +41,21 @@ app.get('/api/todos', async (_req, res) => {
 })
 
 app.post('/api/todos', async (req, res) => {
-  const { text, notes = '', date, time = '', priority = 'medium' } = req.body || {}
+  const { id, text, notes = '', date, endDate, time = '', priority = 'medium', completed = false, completedAt = null, createdAt } = req.body || {}
   if (!text || !String(text).trim()) return res.status(400).json({ error: 'text is required' })
   const todos = await readTodos()
+  if (id && todos.some((t) => t.id === id)) return res.status(409).json({ error: 'id exists' })
   const todo = {
-    id: uid(),
+    id: id ? String(id) : uid(),
     text: String(text).trim().slice(0, 500),
     notes: String(notes).slice(0, 2000),
     date: date || new Date().toISOString().slice(0, 10),
+    endDate: endDate || date || new Date().toISOString().slice(0, 10),
     time,
     priority,
-    completed: false,
-    completedAt: null,
-    createdAt: new Date().toISOString(),
+    completed: !!completed,
+    completedAt,
+    createdAt: createdAt || new Date().toISOString(),
   }
   todos.unshift(todo)
   await writeTodos(todos)
