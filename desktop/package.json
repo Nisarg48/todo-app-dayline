@@ -27,7 +27,8 @@
       "target": ["AppImage", "deb"],
       "category": "Utility",
       "maintainer": "Nisarg Patel <nisargdp48@gmail.com>",
-      "description": "Dayline — day-wise daily planner"
+      "description": "Dayline — day-wise daily planner",
+      "executableArgs": ["--no-sandbox"]
     },
     "deb": { "afterInstall": "build/after-install.sh" }
   }
