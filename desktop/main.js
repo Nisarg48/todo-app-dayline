@@ -5,12 +5,6 @@ import { fileURLToPath } from 'node:url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const isDev = process.env.NODE_ENV !== 'production'
 const PORT = process.env.PORT || '4000'
-
-// Ubuntu 24.04 blocks Electron's SUID sandbox for side-loaded .debs
-// (chrome-sandbox must be root-owned 4755, which App Center installs don't set).
-// Dayline is a local-only app with no remote content, so run unsandboxed on
-// Linux to make double-click open reliably everywhere.
-if (process.platform === 'linux') app.commandLine.appendSwitch('no-sandbox')
 let win = null
 let api = null
 
