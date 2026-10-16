@@ -1,8 +1,7 @@
 // Stages a self-contained desktop app into desktop/staged:
 //   staged/frontend-dist  <- built web app (frontend/dist)
-//   staged/backend        <- server.js + package.json + production deps
+//   staged/backend        <- server.js (zero dependencies, runs anywhere)
 // Run after `npm --prefix frontend run build`, before `electron-builder`.
-import { execSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -23,9 +22,6 @@ fs.cpSync(dist, path.join(staged, 'frontend-dist'), { recursive: true })
 
 const backendDst = path.join(staged, 'backend')
 fs.mkdirSync(backendDst, { recursive: true })
-for (const f of ['server.js', 'package.json']) {
-  fs.copyFileSync(path.join(root, 'backend', f), path.join(backendDst, f))
-}
-execSync('npm install --omit=dev --no-audit --no-fund', { cwd: backendDst, stdio: 'inherit' })
+fs.copyFileSync(path.join(root, 'backend', 'server.js'), path.join(backendDst, 'server.js'))
 
 console.log('staged OK →', staged)

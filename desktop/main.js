@@ -10,8 +10,12 @@ const isDev = !app.isPackaged
 const PORT = process.env.PORT || '4000'
 
 // Side-loaded Linux builds (deb/AppImage) can't use Electron's SUID sandbox
-// (needs root-owned 4755 chrome-sandbox). Local-only app: run unsandboxed.
-if (process.platform === 'linux') app.commandLine.appendSwitch('no-sandbox')
+// (needs root-owned 4755 chrome-sandbox). Local-only app: run unsandboxed,
+// and don't depend on /dev/shm (often inaccessible in such installs).
+if (process.platform === 'linux') {
+  app.commandLine.appendSwitch('no-sandbox')
+  app.commandLine.appendSwitch('disable-dev-shm-usage')
+}
 let win = null
 let api = null
 

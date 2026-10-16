@@ -3,13 +3,10 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Local-first Todo API (file storage, no auth, no cloud)",
+  "description": "Dayline local server (zero dependencies, plain node:http, file storage, no auth)",
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js"
   },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2"
-  }
+  "dependencies": {}
 }
