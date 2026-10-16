@@ -3,8 +3,15 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const isDev = process.env.NODE_ENV !== 'production'
+// NOTE: packaged apps have NO NODE_ENV set, so `process.env.NODE_ENV`
+// detection puts installed apps in dev mode (wrong backend path + wrong URL
+// = blank window). app.isPackaged is the only reliable signal.
+const isDev = !app.isPackaged
 const PORT = process.env.PORT || '4000'
+
+// Side-loaded Linux builds (deb/AppImage) can't use Electron's SUID sandbox
+// (needs root-owned 4755 chrome-sandbox). Local-only app: run unsandboxed.
+if (process.platform === 'linux') app.commandLine.appendSwitch('no-sandbox')
 let win = null
 let api = null
 
