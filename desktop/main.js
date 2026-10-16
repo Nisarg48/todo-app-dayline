@@ -47,15 +47,26 @@ function startBackend() {
 }
 
 async function openApp() {
-  const url = `http://localhost:${PORT}`
-  for (let i = 0; i < 20; i++) {
-    try {
-      await win.loadURL(url)
-      return
-    } catch {
-      await new Promise((r) => setTimeout(r, 500))
+  // Load the port the backend ACTUALLY bound (it auto-bumps when busy).
+  // Never hardcode: a stale port = dark empty window.
+  const base = Number(PORT)
+  const deadline = Date.now() + 20000
+  while (Date.now() < deadline) {
+    for (let p = base; p < base + 10; p++) {
+      try {
+        const ctrl = new AbortController()
+        const id = setTimeout(() => ctrl.abort(), 800)
+        const r = await fetch(`http://localhost:${p}/api/health`, { signal: ctrl.signal })
+        clearTimeout(id)
+        if (r.ok) {
+          await win.loadURL(`http://localhost:${p}`)
+          return
+        }
+      } catch { /* try next port */ }
     }
+    await new Promise((r) => setTimeout(r, 500))
   }
+  await win.loadURL(`http://localhost:${base}`)
 }
 
 async function createWindow() {
@@ -81,11 +92,25 @@ async function createWindow() {
   win.on('closed', () => { win = null })
 }
 
-app.whenReady().then(() => {
-  startBackend()
-  createWindow()
-  app.on('activate', () => { if (!win) createWindow() })
-})
+const gotLock = app.requestSingleInstanceLock()
+if (!gotLock) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    // Clicking the icon focuses the running app instead of spawning
+    // competing backends on bumped ports.
+    if (win) {
+      if (win.isMinimized()) win.restore()
+      win.focus()
+    }
+  })
+
+  app.whenReady().then(() => {
+    startBackend()
+    createWindow()
+    app.on('activate', () => { if (!win) createWindow() })
+  })
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()

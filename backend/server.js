@@ -96,13 +96,18 @@ async function serveStatic(req, res, pathname) {
     const stat = await fs.stat(resolved)
     const file = stat.isDirectory() ? path.join(resolved, 'index.html') : resolved
     const body = await fs.readFile(file)
-    res.writeHead(200, { 'Content-Type': MIME[path.extname(file).toLowerCase()] || 'application/octet-stream', 'Content-Length': body.length, ...corsHeaders() })
+    // Hashed build assets are immutable; the app shell must NEVER be cached
+    // (a stale index.html pointing at deleted hashes = blank window).
+    const cache = file.includes(`${path.sep}assets${path.sep}`)
+      ? 'public, max-age=31536000, immutable'
+      : 'no-store'
+    res.writeHead(200, { 'Content-Type': MIME[path.extname(file).toLowerCase()] || 'application/octet-stream', 'Content-Length': body.length, 'Cache-Control': cache, ...corsHeaders() })
     res.end(body)
   } catch {
     // SPA fallback: unknown paths serve the app (client tabs are hashless routes)
     try {
       const body = await fs.readFile(path.join(FRONTEND_DIST, 'index.html'))
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Length': body.length, ...corsHeaders() })
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Length': body.length, 'Cache-Control': 'no-store', ...corsHeaders() })
       res.end(body)
     } catch {
       res.writeHead(404, corsHeaders())
